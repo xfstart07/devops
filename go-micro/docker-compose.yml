@@ -1,0 +1,45 @@
+version: "3"
+services:
+  api:
+    image: micro/micro:v2.9.3
+    restart: unless-stopped
+    command: api --handler=api --namespace=com.bjywkd.api
+    ports:
+      - "8080:8080"
+    environment:
+      - MICRO_API_NAMESPACE=com.bjywkd.api
+      - MICRO_REGISTRY=etcd
+      - MICRO_REGISTRY_ADDRESS=etcd0:2379
+    networks:
+      - local_net
+
+  web:
+    image: micro/micro:v2.9.3
+    restart: unless-stopped
+    command: web --namespace=com.bjywkd.web
+    ports:
+      - "8082:8082"
+      - "8083:8083"
+    environment:
+      - MICRO_REGISTRY=etcd
+      - MICRO_REGISTRY_ADDRESS=etcd0:2379
+      - MICRO_WEB_RESOLVER=ucenter
+      - MICRO_WEB_NAMESPACE=com.bjywkd.web
+    networks:
+      - local_net
+
+  # proxy 目前没有用到的地方
+  proxy:
+    image: micro/micro:v2.9.3
+    restart: unless-stopped
+    command: proxy
+    environment:
+      - MICRO_API_NAMESPACE=com.bjywkd
+      - MICRO_REGISTRY=etcd
+      - MICRO_REGISTRY_ADDRESS=etcd0:2379
+    networks:
+      - local_net
+
+networks:
+  local_net:
+    external: true

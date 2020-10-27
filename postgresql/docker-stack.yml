@@ -1,0 +1,29 @@
+version: "3.5"
+services:
+  pgsql:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_store:/var/lib/postgresql
+    environment:
+      - POSTGRES_PASSWORD=123456
+    deploy:
+      replicas: 1
+    networks:
+      legacy:
+        aliases:
+          - pgnet
+        ipv4_address: 10.0.6.5
+
+volumes:
+  pg_store:
+    external: true
+networks:
+  legacy:
+    driver: overlay
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 10.0.6.0/24

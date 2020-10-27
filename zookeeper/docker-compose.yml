@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: 'bitnami/zookeeper:3'
+    container_name: zookeeper
+    ports:
+      - '2181:2181'
+    volumes:
+      - 'zookeeper_data:/data'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - local_net 
+
+volumes:
+  zookeeper_data:
+    driver: local
+
+networks:
+  local_net:
+    external: true
