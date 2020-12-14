@@ -25,16 +25,6 @@ services:
     networks:
       - local_net
 
-    etcda: # 简单的管理界面
-      image: evildecay/etcdkeeper
-      environment:
-        HOST: 0.0.0.0
-      ports:
-        - 10280:8080 # 本地的端口自己设置
-      depends_on:
-        - etcd0
-      networks:
-        - local_net
   etcd1:
     image: quay.io/coreos/etcd
     volumes:
@@ -78,6 +68,17 @@ services:
       - http://0.0.0.0:2380
       - -initial-cluster
       - etcd0=http://etcd0:2380,etcd1=http://etcd1:2380,etcd2=http://etcd2:2380
+    networks:
+      - local_net
+
+  etcdd: # 简单的管理界面
+    image: evildecay/etcdkeeper
+    environment:
+      HOST: 0.0.0.0
+    ports:
+      - 10280:8080 # 本地的端口自己设置
+    depends_on:
+      - etcd0
     networks:
       - local_net
 
