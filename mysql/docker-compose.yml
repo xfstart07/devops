@@ -1,20 +1,19 @@
 version: "3"
 services:
   mysql:
-    image: mysql:5.7.23
+    image: mysql:latest
     restart: unless-stopped
-    container_name: db_mysql5.7
+    container_name: db_mysql8
     ports:
       - "3306:3306"
     volumes:
-      - ./conf/my.cnf:/etc/mysql/conf.d
-      - mysql_store:/var/lib/mysql
+      - mysql_store8:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     networks:
       - local_net
 volumes:
-  mysql_store:
+  mysql_store8:
     external: true
 networks:
   local_net:
