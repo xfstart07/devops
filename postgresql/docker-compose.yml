@@ -1,6 +1,7 @@
 version: "3"
 services:
   pgsql:
+    container_name: pgsql 
     image: postgres
     ports:
       - "5433:5432"
@@ -8,12 +9,7 @@ services:
       - pg_store:/var/lib/postgresql
     environment:
       - POSTGRES_PASSWORD=VKyXzuCgM2yr
-    networks:
-      - local_net 
 
 volumes:
   pg_store:
-    external: true
-networks:
-  local_net:
     external: true
