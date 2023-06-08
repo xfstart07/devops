@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: 'hashicorp/consul:latest'
+    container_name: consul
+    restart: always
+    ports:
+      - "8500:8500"
+    volumes:
+      - 'consul_data:/consul'
+    command: ["consul","agent","-server","-bootstrap","-data-dir","/consul","-ui","-bind","127.0.0.1","-client","0.0.0.0"]
+volumes:
+  consul_data:
+    driver: local
