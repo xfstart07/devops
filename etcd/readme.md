@@ -26,4 +26,4 @@ docker-compose -f cluster.yml up
 
 ## Ref
 
-* https://github.com/etcd-io/etcd/releases
+https://github.com/bitnami/containers/tree/main/bitnami/etcd
