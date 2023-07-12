@@ -1,0 +1,7 @@
+version: "3"
+services:
+  myspace:
+    image: ubuntu 
+    volumes:
+      - ./work:/work
+
